@@ -1,0 +1,37 @@
+zeo:
+  build: zeo
+  user: 1000
+  volumes_from:
+   - data
+
+zclient1:
+  build: eeacms/glossary-zclient
+  user: 1000
+  links:
+   - zeo
+
+zclient2:
+  build: eeacms/glossary-zclient
+  user: 1000
+  links:
+   - zeo
+
+zclient3:
+  build: eeacms/glossary-zclient
+  user: 1000
+  links:
+   - zeo
+
+varnish:
+  build: varnish
+  links:
+   - zclient1
+   - zclient2
+   - zclient3
+  ports:
+   - "8080:80"
+
+data:
+  build: data
+  volumes:
+   - /var/local/zeostorage/var/
