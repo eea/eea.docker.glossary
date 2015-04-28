@@ -12,6 +12,7 @@ Docker images created for EEA Glossary, including images for **ZEO server**, **Z
 ### Usage
   
     $ git clone https://github.com/eea/eea.docker.glossary
+    $ cd eea.docker.glossary
     $ docker-compose up
 
 ### Restore application data
