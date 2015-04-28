@@ -1,23 +1,15 @@
 ## EEA Glossary application docker setup
 
-Docker images created for EEA Glossary, including images for **ZEO server**, **ZEO client**, **Varnish** and a dedicated data container.
+ZEO client ready to run Docker image for EEA Glossary project.
 
-**ZEO server** and **ZEO client** have the same base image, you can find it on [Docker Hub](https://registry.hub.docker.com/u/eeacms/zope/) or you can inspect the [Github repository](https://github.com/eea/eea.docker.zope) to see the Dockerfile.
-
+### Dockerhub repository
+- [hub.docker.com](https://registry.hub.docker.com/u/eeacms/glossary-zclient/)
 
 ### Installation
 1. Install [Docker](https://www.docker.com/).
 2. Install [Docker Compose](https://docs.docker.com/compose/).
 
 ### Usage
-
-Production environment:
-  
-    $ git clone https://github.com/eea/eea.docker.glossary
-    $ cd eea.docker.glossary
-    $ docker-compose up
-
-Development environment:
 
     $ git clone https://github.com/eea/eea.docker.glossary
     $ cd eea.docker.glossary
@@ -26,6 +18,8 @@ Development environment:
 ### Restore application data
 If you have a Data.fs file for EEA Glossary application, you can add it with the following commands:
 
+    $ git clone https://github.com/eea/eea.docker.glossary
+    $ cd eea.docker.glossary
     $ docker-compose up data
     $ docker run -it --rm --volumes-from dockerglossary_data_1 -v \ 
       /path/to/parent/folder/of/Data.fs/file/:/mnt debian /bin/bash -c \ 
