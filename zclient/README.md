@@ -15,6 +15,8 @@ ZEO client ready to run Docker image for EEA Glossary project.
     $ cd eea.docker.glossary
     $ docker-compose -f docker-compose-dev.yml up
 
+After all containers are started, you can access the application on http://<IP>, where IP is address of your machine.
+
 ### Restore application data
 If you have a Data.fs file for EEA Glossary application, you can add it with the following commands:
 
