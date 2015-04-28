@@ -1,4 +1,4 @@
-FROM vitaliemaldur/zope
+FROM eeacms/zope:2.8.0
 
 MAINTAINER "Vitalie Maldur" <vitalie.maldur@eaudeweb.ro>
 
