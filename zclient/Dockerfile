@@ -35,7 +35,6 @@ RUN wget http://download.hforge.org/itools/0.9/itools-0.9.5.tar.gz && \
 #clean up
 RUN rm -rf pygoogle-0.6* itools-0.9.5* && yum clean all
 
-# Run zope
 USER 1000
 
 ## get the application code
@@ -47,4 +46,7 @@ RUN svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/ALi
     svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Epoz/ $ZOPE_INSTANCE/Products/Epoz && \
     svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Extensions/ $ZOPE_INSTANCE/Extensions
 
+RUN mkdir -p $ZOPE_INSTANCE/var/ALiSS && cp $ZOPE_INSTANCE/Products/ALiSS/data/aliss_stopwords.xliff $ZOPE_INSTANCE/var/ALiSS
+
+# Run zope
 CMD $ZOPE_INSTANCE/bin/zopectl start && $ZOPE_INSTANCE/bin/zopectl logtail

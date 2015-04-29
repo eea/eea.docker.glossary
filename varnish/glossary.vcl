@@ -18,37 +18,16 @@ import directors;
 backend glossary_instance_1 {
   .host = "zclient1";
   .port = "8080";
-  .probe = {
-    .url = "/";
-    .interval = 30s;
-    .timeout = 3s;
-    .window = 5;
-    .threshold = 3;
-  }
 }
 
 backend glossary_instance_2 {
   .host = "zclient2";
   .port = "8080";
-  .probe = {
-    .url = "/";
-    .interval = 30s;
-    .timeout = 3s;
-    .window = 5;
-    .threshold = 3;
-  }
 }
 
 backend glossary_instance_3 {
   .host = "zclient3";
   .port = "8080";
-  .probe = {
-    .url = "/";
-    .interval = 30s;
-    .timeout = 3s;
-    .window = 5;
-    .threshold = 3;
-  }
 }
 
 sub vcl_init {
