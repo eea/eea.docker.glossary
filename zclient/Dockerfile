@@ -19,7 +19,7 @@ COPY zope.conf $ZOPE_INSTANCE/etc/zope.conf
 
 # Adding application code
 ## install dependencies
-RUN yum -y update && yum -y install subversion
+RUN yum -y updateinfo && yum -y install subversion
 
 ## install pygoogle
 RUN wget https://pypi.python.org/packages/source/p/pygoogle/pygoogle-0.6.tar.gz && \
