@@ -28,6 +28,11 @@ varnish:
    - zclient1
    - zclient2
    - zclient3
+
+apache:
+  build: apache
+  links:
+   - varnish
   ports:
    - "80:80"
 
