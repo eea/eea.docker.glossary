@@ -1,28 +1,28 @@
 zeo:
   restart: always
   build: zeo
-  user: 1000
+  user: "1000"
   volumes_from:
    - data
 
 zclient1:
   restart: always
   image: eeacms/glossary-zclient
-  user: 1000
+  user: "1000"
   links:
    - zeo
 
 zclient2:
   restart: always
   image: eeacms/glossary-zclient
-  user: 1000
+  user: "1000"
   links:
    - zeo
 
 zclient3:
   restart: always
   image: eeacms/glossary-zclient
-  user: 1000
+  user: "1000"
   links:
    - zeo
 

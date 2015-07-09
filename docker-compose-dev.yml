@@ -1,12 +1,12 @@
 zeo:
   build: zeo
-  user: 1000
+  user: "1000"
   volumes_from:
    - data
 
 zclient:
   image: eeacms/glossary-zclient
-  user: 1000
+  user: "1000"
   links:
    - zeo
   ports:
