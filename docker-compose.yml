@@ -40,7 +40,7 @@ apache:
   links:
    - varnish
   ports:
-   - "80:80"
+   - "2222:80"
 
 data:
   build: data
