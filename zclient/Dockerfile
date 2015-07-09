@@ -27,8 +27,9 @@ RUN wget https://pypi.python.org/packages/source/p/pygoogle/pygoogle-0.6.tar.gz 
     cd pygoogle-0.6/ && python2.3 setup.py install && cd ..
 
 ## install itools-0.9.5
-RUN wget http://download.hforge.org/itools/0.9/itools-0.9.5.tar.gz && \
-    tar xvf itools-0.9.5.tar.gz && \
+RUN yum -y install unzip && \
+    wget https://github.com/hforge/itools/archive/0.9.5.zip -O itools-0.9.5.zip && \
+    unzip itools-0.9.5.zip && \
     echo "Revision: \n Version 1.0.0" > itools-0.9.5/Changelog && \
     cd itools-0.9.5/ && python2.3 setup.py install && cd ..
 
