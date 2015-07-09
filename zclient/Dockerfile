@@ -45,7 +45,8 @@ RUN svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/ALi
     svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/iHotfix/ $ZOPE_INSTANCE/Products/iHotfix && \
     svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Five/ $ZOPE_INSTANCE/Products/Five && \
     svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Epoz/ $ZOPE_INSTANCE/Products/Epoz && \
-    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Extensions/ $ZOPE_INSTANCE/Extensions
+    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Extensions/ $ZOPE_INSTANCE/Extensions && \
+    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/EEAGlossary/ $ZOPE_INSTANCE/Products/EEAGlossary
 
 RUN mkdir -p $ZOPE_INSTANCE/var/ALiSS && cp $ZOPE_INSTANCE/Products/ALiSS/data/aliss_stopwords.xliff $ZOPE_INSTANCE/var/ALiSS
 
