@@ -33,6 +33,10 @@ varnish:
    - zclient1
    - zclient2
    - zclient3
+  volumes:
+   - ./varnish/conf.d/:/etc/varnish/conf.d/
+  env_file:
+   - ./varnish/varnish.env
 
 apache:
   restart: always
