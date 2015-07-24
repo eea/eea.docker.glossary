@@ -28,21 +28,24 @@ zclient3:
 
 varnish:
   restart: always
-  build: varnish
+  image: eeacms/varnish:4
   links:
    - zclient1
    - zclient2
    - zclient3
   volumes:
    - ./varnish/conf.d/:/etc/varnish/conf.d/
+   - ./varnish/500msg.html:/var/static/500msg.html
   env_file:
    - ./varnish/varnish.env
 
 apache:
   restart: always
-  build: apache
+  image: eeacms/httpd:centos6
   links:
    - varnish
+  volumes:
+   - ./apache/vh-glossary.conf:/etc/httpd/conf.d/vh-glossary.conf
   ports:
    - "2222:80"
 
