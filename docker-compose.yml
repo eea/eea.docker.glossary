@@ -37,11 +37,11 @@ varnish:
    - ./varnish/conf.d/:/etc/varnish/conf.d/
    - ./varnish/500msg.html:/var/static/500msg.html
   env_file:
-   - ./varnish/varnish.env
+   - ./varnish.env
 
 apache:
   restart: always
-  image: eeacms/httpd:centos6
+  image: eeacms/apache:2.4
   links:
    - varnish
   volumes:
