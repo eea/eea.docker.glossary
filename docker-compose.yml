@@ -1,6 +1,6 @@
 zeo:
   restart: always
-  build: zeo
+  image: eeacms/glossary-zeoserver
   user: "1000"
   volumes_from:
    - data

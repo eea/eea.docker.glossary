@@ -1,5 +1,5 @@
 zeo:
-  build: zeo
+  build: eeacms/glossary-zeoserver
   user: "1000"
   volumes_from:
    - data
