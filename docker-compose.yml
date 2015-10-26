@@ -1,34 +1,34 @@
 zeo:
   restart: always
-  image: eeacms/glossary-zeoserver
+  image: docker.io/eeacms/glossary-zeoserver
   user: "1000"
   volumes_from:
    - data
 
 zclient1:
   restart: always
-  image: eeacms/glossary-zclient
+  image: docker.io/eeacms/glossary-zclient
   user: "1000"
   links:
    - zeo
 
 zclient2:
   restart: always
-  image: eeacms/glossary-zclient
+  image: docker.io/eeacms/glossary-zclient
   user: "1000"
   links:
    - zeo
 
 zclient3:
   restart: always
-  image: eeacms/glossary-zclient
+  image: docker.io/eeacms/glossary-zclient
   user: "1000"
   links:
    - zeo
 
 varnish:
   restart: always
-  image: eeacms/varnish:4
+  image: docker.io/eeacms/varnish:4
   links:
    - zclient1
    - zclient2
@@ -41,7 +41,7 @@ varnish:
 
 apache:
   restart: always
-  image: eeacms/apache:2.4
+  image: docker.io/eeacms/apache:2.4
   links:
    - varnish
   volumes:
