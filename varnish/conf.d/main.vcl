@@ -38,12 +38,12 @@ sub vcl_recv {
         }
 
         # pick correct backend for glossary
-        set req.backend_hint = glossary_director.backend();
+        set req.backend_hint = backends_director.backend();
     }
     else
     {
         # pick up a random instance for anonymous users to the eea site
-    #    set req.backend = eea_director;
+    #    set req.backend = backends_director;
     }
 
 

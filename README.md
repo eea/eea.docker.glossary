@@ -12,10 +12,10 @@ Docker images created for EEA Glossary, including images for **ZEO server**, **Z
 ### Usage
 
 Production environment:
-  
+
     $ git clone https://github.com/eea/eea.docker.glossary
     $ cd eea.docker.glossary
-    $ docker-compose up
+    $ docker-compose up -d
 
 Development environment:
 
@@ -25,12 +25,22 @@ Development environment:
 
 After all containers are started, you can access the application on **http://\<IP\>**, where **IP** is address of your machine.
 
+### Upgrade
+
+    $ cd eea.docker.glossary
+    $ git pull
+    $ docker-compose pull
+
+    $ docker-compose stop
+    $ docker-compose rm -v apache varnish zclient1 zclient2 zclient3 zeo
+    $ docker-compose up -d --no-recreate
+
 ### Restore application data
 If you have a Data.fs file for EEA Glossary application, you can add it with the following commands:
 
     $ docker-compose up data
-    $ docker run -it --rm --volumes-from eeadockerglossary_data_1 -v \ 
-      /path/to/parent/folder/of/Data.fs/file/:/mnt debian /bin/bash -c \ 
+    $ docker run -it --rm --volumes-from eeadockerglossary_data_1 -v \
+      /path/to/parent/folder/of/Data.fs/file/:/mnt debian /bin/bash -c \
       "cp /mnt/Data.fs /var/local/zeostorage/var/ && chown 1000:1000 /var/local/zeostorage/var/Data.fs"
 
 ### Data migration

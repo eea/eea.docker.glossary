@@ -1,18 +1,19 @@
 zeo:
-  build: eeacms/glossary-zeoserver
+  build: zeo
   user: "1000"
   volumes_from:
-   - data
+  - data
 
 zclient:
-  image: eeacms/glossary-zclient
+  build: zclient
   user: "1000"
   links:
-   - zeo
+  - zeo
   ports:
-   - "80:8080"
+  - "80:8080"
 
 data:
-  build: data
+  image: busybox
   volumes:
-   - /var/local/zeostorage/var/
+  - /var/local/zeostorage/var/
+  command: chown -R 1000:1000 /var/local/zeostorage/var/

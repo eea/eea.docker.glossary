@@ -1,55 +1,52 @@
-zeo:
+apache:
   restart: always
-  image: docker.io/eeacms/glossary-zeoserver
-  user: "1000"
-  volumes_from:
-   - data
-
-zclient1:
-  restart: always
-  image: docker.io/eeacms/glossary-zclient
-  user: "1000"
+  image: eeacms/glossary-apache
   links:
-   - zeo
-
-zclient2:
-  restart: always
-  image: docker.io/eeacms/glossary-zclient
-  user: "1000"
-  links:
-   - zeo
-
-zclient3:
-  restart: always
-  image: docker.io/eeacms/glossary-zclient
-  user: "1000"
-  links:
-   - zeo
+  - varnish
+  ports:
+  - "2222:80"
 
 varnish:
   restart: always
-  image: docker.io/eeacms/varnish:4
+  image: eeacms/glossary-varnish
   links:
-   - zclient1
-   - zclient2
-   - zclient3
-  volumes:
-   - ./varnish/conf.d/:/etc/varnish/conf.d/
-   - ./varnish/500msg.html:/var/static/500msg.html
-  env_file:
-   - ./varnish.env
+  - zclient1
+  - zclient2
+  - zclient3
+  environment:
+  - CACHE_SIZE=200M
+  - PARAM_VALUE=-p default_ttl=3600 -p default_grace=3600
 
-apache:
+zeo:
   restart: always
-  image: docker.io/eeacms/apache:2.4
+  image: eeacms/glossary-zeoserver
+  user: "1000"
+  volumes_from:
+  - data
+
+zclient1:
+  restart: always
+  image: eeacms/glossary-zclient
+  user: "1000"
   links:
-   - varnish
-  volumes:
-   - ./apache/vh-glossary.conf:/etc/httpd/conf.d/vh-glossary.conf
-  ports:
-   - "2222:80"
+  - zeo
+
+zclient2:
+  restart: always
+  image: eeacms/glossary-zclient
+  user: "1000"
+  links:
+  - zeo
+
+zclient3:
+  restart: always
+  image: eeacms/glossary-zclient
+  user: "1000"
+  links:
+  - zeo
 
 data:
-  build: data
+  image: busybox
   volumes:
-   - /var/local/zeostorage/var/
+  - /var/local/zeostorage/var/
+  command: chown -R 1000:1000 /var/local/zeostorage/var/
