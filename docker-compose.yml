@@ -5,6 +5,8 @@ apache:
   - varnish
   ports:
   - "2222:80"
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
 
 varnish:
   restart: always
@@ -16,6 +18,8 @@ varnish:
   environment:
   - CACHE_SIZE=200M
   - PARAM_VALUE=-p default_ttl=3600 -p default_grace=3600
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
 
 zeo:
   restart: always
@@ -23,6 +27,8 @@ zeo:
   user: "1000"
   volumes_from:
   - data
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
 
 zclient1:
   restart: always
@@ -30,6 +36,8 @@ zclient1:
   user: "1000"
   links:
   - zeo
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
 
 zclient2:
   restart: always
@@ -37,6 +45,8 @@ zclient2:
   user: "1000"
   links:
   - zeo
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
 
 zclient3:
   restart: always
@@ -44,9 +54,13 @@ zclient3:
   user: "1000"
   links:
   - zeo
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
 
 data:
   image: busybox
   volumes:
-  - /var/local/zeostorage/var/
-  command: chown -R 1000:1000 /var/local/zeostorage/var/
+  - /var/local/zeostorage/var
+  command: sh -c "chown -R 1000:1000 /var/local/zeostorage/var/ >> /var/local/zeostorage/var/chown.log && exec tail -f /var/local/zeostorage/var/chown.log"
+  tty: true
+  stdin_open: true
