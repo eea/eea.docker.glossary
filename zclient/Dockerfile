@@ -6,15 +6,17 @@ MAINTAINER "Vitalie Maldur" <vitalie.maldur@eaudeweb.ro>
 ENV ZOPE_INSTANCE /var/local/zclient
 ENV ZOPE_USER zope
 
-# Add the zope user
-RUN useradd -u 1000 -m -s /bin/bash $ZOPE_USER
+# Create user with uid=500 gid=500 groups=500
+RUN groupadd -g 500 zope
+RUN useradd zope -g zope
+RUN usermod -u 500 zope
 
 # Create zope instance
 RUN python $ZOPE_PATH/bin/mkzopeinstance.py -d $ZOPE_INSTANCE -u $ZOPE_USER:$ZOPE_USER
 RUN touch $ZOPE_INSTANCE/log/event.log
 
 # Configuration
-RUN chown -R 1000:1000 $ZOPE_INSTANCE
+RUN chown -R zope:zope $ZOPE_INSTANCE
 COPY zope.conf $ZOPE_INSTANCE/etc/zope.conf
 
 # Adding application code
@@ -36,7 +38,7 @@ RUN yum -y install unzip && \
 #clean up
 RUN rm -rf pygoogle-0.6* itools-0.9.5* && yum clean all
 
-USER 1000
+USER 500
 
 ## get the application code
 RUN svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/ALiSS/ $ZOPE_INSTANCE/Products/ALiSS && \
@@ -50,5 +52,32 @@ RUN svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/ALi
 
 RUN mkdir -p $ZOPE_INSTANCE/var/ALiSS && cp $ZOPE_INSTANCE/Products/ALiSS/data/aliss_stopwords.xliff $ZOPE_INSTANCE/var/ALiSS
 
-# Run zope
-CMD $ZOPE_INSTANCE/bin/zopectl start && $ZOPE_INSTANCE/bin/zopectl logtail
+
+##### Install Chaperone
+USER root
+
+# Python 3.4 install
+RUN yum -y install epel-release
+RUN yum install python34 python34-devel -y
+RUN curl -s "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+RUN python3.4 get-pip.py
+
+# Set symlink
+RUN cd /usr/bin
+RUN ln -s python3.4 python3
+
+# Chaperone install
+RUN pip3 install chaperone
+RUN mkdir -p /etc/chaperone.d
+COPY chaperone.conf /etc/chaperone.d/chaperone.conf
+
+# Clean
+RUN yum clean all
+RUN rm -rf /tmp/* /var/tmp/*
+
+# Chaperone
+ENV _CHAP_OPTIONS="--default-home /var/local/zclient/"
+ENTRYPOINT ["/usr/bin/chaperone"]
+
+# Run container with user
+USER zope
