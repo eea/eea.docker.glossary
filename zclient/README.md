@@ -23,9 +23,9 @@ If you have a Data.fs file for EEA Glossary application, you can add it with the
     $ git clone https://github.com/eea/eea.docker.glossary
     $ cd eea.docker.glossary
     $ docker-compose up data
-    $ docker run -it --rm --volumes-from eeadockerglossary_data_1 -v \ 
-      /path/to/parent/folder/of/Data.fs/file/:/mnt debian /bin/bash -c \ 
-      "cp /mnt/Data.fs /var/local/zeostorage/var/ && chown 1000:1000 /var/local/zeostorage/var/Data.fs"
+    $ docker run -it --rm --volumes-from eeadockerglossary_data_1 -v \
+      /path/to/parent/folder/of/Data.fs/file/:/mnt debian /bin/bash -c \
+      "cp /mnt/Data.fs /var/local/zeostorage/var/ && chown 500:500 /var/local/zeostorage/var/Data.fs"
 
 ### Data migration
 You can access production Data.fs on Sparrow, it is located at:

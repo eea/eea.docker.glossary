@@ -24,7 +24,6 @@ varnish:
 zeo:
   restart: always
   image: eeacms/glossary-zeoserver
-  user: "1000"
   volumes_from:
   - data
   volumes:
@@ -33,7 +32,6 @@ zeo:
 zclient1:
   restart: always
   image: eeacms/glossary-zclient
-  user: "1000"
   links:
   - zeo
   volumes:
@@ -42,7 +40,6 @@ zclient1:
 zclient2:
   restart: always
   image: eeacms/glossary-zclient
-  user: "1000"
   links:
   - zeo
   volumes:
@@ -51,7 +48,6 @@ zclient2:
 zclient3:
   restart: always
   image: eeacms/glossary-zclient
-  user: "1000"
   links:
   - zeo
   volumes:
@@ -61,6 +57,6 @@ data:
   image: busybox
   volumes:
   - /var/local/zeostorage/var
-  command: sh -c "chown -R 1000:1000 /var/local/zeostorage/var/ >> /var/local/zeostorage/var/chown.log && exec tail -f /var/local/zeostorage/var/chown.log"
+  command: ["chown", "-v", "-R", "500:500", "/var/local/zeostorage/var"]
   tty: true
   stdin_open: true

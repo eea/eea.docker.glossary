@@ -1,12 +1,10 @@
 zeo:
   build: zeo
-  user: "1000"
   volumes_from:
   - data
 
 zclient:
   build: zclient
-  user: "1000"
   links:
   - zeo
   ports:
@@ -16,4 +14,4 @@ data:
   image: busybox
   volumes:
   - /var/local/zeostorage/var/
-  command: chown -R 1000:1000 /var/local/zeostorage/var/
+  command: chown -R 500:500 /var/local/zeostorage/var/
