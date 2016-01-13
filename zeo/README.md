@@ -13,7 +13,7 @@ ZEO Server ready to run Docker image for EEA Glossary project.
 
     $ git clone https://github.com/eea/eea.docker.glossary
     $ cd eea.docker.glossary
-    $ docker-compose -d up
+    $ docker-compose up -d
 
 After all containers are started, you can access the application on **http://\<IP\>**, where **IP** is address of your machine.
 

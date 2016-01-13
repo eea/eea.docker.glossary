@@ -1,4 +1,4 @@
-FROM eeacms/varnish:4
+FROM eeacms/varnish:4s
 MAINTAINER "Alin Voinea" <alin.voinea@eaudeweb.ro>
 
 ADD ./conf.d/main.vcl /etc/varnish/conf.d/

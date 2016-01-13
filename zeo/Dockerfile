@@ -29,6 +29,7 @@ RUN yum -y install epel-release && \
 
 # Chaperone setup
 COPY chaperone.conf /etc/chaperone.d/chaperone.conf
+
 USER zope
 
 ENTRYPOINT ["/usr/bin/chaperone"]
