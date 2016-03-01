@@ -1,6 +1,5 @@
 FROM eeacms/zope:2.8.0
-
-MAINTAINER "Vitalie Maldur" <vitalie.maldur@eaudeweb.ro>
+MAINTAINER "EEA: IDM2 A-Team" <eea-edw-a-team-alerts@googlegroups.com>
 
 # Path to zeostorage
 ENV STORAGE_PATH /var/local/zeostorage
@@ -18,12 +17,11 @@ RUN groupadd -g 500 zope && \
 
 # Python 3.4 install
 RUN yum -y install epel-release && \
-    yum install python34 python34-devel -y && \
+    yum install python34-devel -y && \
     curl -s "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
-    python3.4 get-pip.py && \
+    python3 get-pip.py && \
 
 # Chaperone install
-    cd /usr/bin && ln -s python3.4 python3 && \
     pip3 install chaperone && \
     yum clean all && rm -rf /tmp/*
 
