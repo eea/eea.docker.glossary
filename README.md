@@ -17,12 +17,6 @@ Production environment:
     $ cd eea.docker.glossary
     $ docker-compose up -d
 
-Development environment:
-
-    $ git clone https://github.com/eea/eea.docker.glossary
-    $ cd eea.docker.glossary
-    $ docker-compose -f docker-compose-dev.yml up
-
 After all containers are started, you can access the application on **http://\<IP\>**, where **IP** is address of your machine.
 
 ### Upgrade
