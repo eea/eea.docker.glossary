@@ -30,14 +30,27 @@ After all containers are started, you can access the application on **http://\<I
     $ docker-compose up -d --no-recreate
 
 ### Restore application data
-If you have a Data.fs file for EEA Glossary application, you can add it with the following commands:
 
+1. Start **rsync client** on host where do you want to migrate eggrepo data (DESTINATION HOST):
+
+  ```
     $ docker-compose up data
-    $ docker run -it --rm --volumes-from eeadockerglossary_data_1 -v \
-      /path/to/parent/folder/of/Data.fs/file/:/mnt debian /bin/bash -c \
-      "cp /mnt/Data.fs /var/local/zeostorage/var/ && chown 500:500 /var/local/zeostorage/var/Data.fs"
+    $ docker run -it --rm --name=r-client --volumes-from=eeadockerglossary_data_1 eeacms/rsync sh
+  ```
 
-### Data migration
-You can access production Data.fs on Sparrow, it is located at:
+2. Start **rsync server** on host from where do you want to migrate eggrepo data (SOURCE HOST):
 
-    /var/local/zope-instances/eeawebservices/eeawebservices-zeo-storage/var/Data.fs
+  ```
+    $ docker run -it --rm --name=r-server -p 2224:22 --volumes-from=eeadockerglossary_data_1 \
+                 -e SSH_AUTH_KEY="<SSH-KEY-FROM-R-CLIENT-ABOVE>" \
+             eeacms/rsync server
+  ```
+
+3. Within **rsync client** container from step 1 run:
+
+  ```
+    $ rsync -e 'ssh -p 2224' -avz root@<SOURCE HOST IP>:/var/local/zeostorage/var/ /var/local/zeostorage/var/
+  ```
+
+
+
