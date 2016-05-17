@@ -18,7 +18,7 @@ COPY zope.conf $ZOPE_INSTANCE/etc/zope.conf
 
 # Adding application code
 ## install dependencies
-RUN yum -y updateinfo && yum -y install subversion && \
+RUN yum -y updateinfo && yum -y install git && \
 
 ## Install pygoogle
     wget https://pypi.python.org/packages/source/p/pygoogle/pygoogle-0.6.tar.gz && \
@@ -36,14 +36,17 @@ RUN yum -y updateinfo && yum -y install subversion && \
 USER zope
 
 ## get the application code
-RUN svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/ALiSS/ $ZOPE_INSTANCE/Products/ALiSS && \
-    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/EEAALiSS/ $ZOPE_INSTANCE/Products/EEAALiSS && \
-    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Localizer/ $ZOPE_INSTANCE/Products/Localizer && \
-    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/iHotfix/ $ZOPE_INSTANCE/Products/iHotfix && \
-    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Five/ $ZOPE_INSTANCE/Products/Five && \
-    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Epoz/ $ZOPE_INSTANCE/Products/Epoz && \
-    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/ALiSS_agents/Extensions/ $ZOPE_INSTANCE/Extensions && \
-    svn co https://svn.eionet.europa.eu/repositories/Zope/trunk/EEAGlossary/ $ZOPE_INSTANCE/Products/EEAGlossary
+RUN git clone https://github.com/eea/EEAGlossary.git $ZOPE_INSTANCE/Products/EEAGlossary && \
+    git clone https://github.com/eea/ALiSS_agents.git $ZOPE_INSTANCE/ALiSS_agents && \
+    ln -s $ZOPE_INSTANCE/ALiSS_agents/ALiSS $ZOPE_INSTANCE/Products/ALiSS && \
+    ln -s $ZOPE_INSTANCE/ALiSS_agents/EEAALiSS $ZOPE_INSTANCE/Products/EEAALiSS && \
+    ln -s $ZOPE_INSTANCE/ALiSS_agents/Localizer $ZOPE_INSTANCE/Products/Localizer && \
+    ln -s $ZOPE_INSTANCE/ALiSS_agents/iHotfix $ZOPE_INSTANCE/Products/iHotfix && \
+    ln -s $ZOPE_INSTANCE/ALiSS_agents/Five $ZOPE_INSTANCE/Products/Five && \
+    ln -s $ZOPE_INSTANCE/ALiSS_agents/Epoz $ZOPE_INSTANCE/Products/Epoz && \
+    ln -s $ZOPE_INSTANCE/ALiSS_agents/Epoz $ZOPE_INSTANCE/Products/Epoz && \
+    ln -s $ZOPE_INSTANCE/ALiSS_agents/Extensions $ZOPE_INSTANCE/Products/Extensions
+     
 
 RUN mkdir -p $ZOPE_INSTANCE/var/ALiSS && cp $ZOPE_INSTANCE/Products/ALiSS/data/aliss_stopwords.xliff $ZOPE_INSTANCE/var/ALiSS
 
