@@ -1,5 +1,7 @@
 ## EEA Glossary application docker setup
 
+**DEPRECATED**: the glossary is now available in plone via [EEA glossary online](https://www.eea.europa.eu/help/glossary) see dexterity product [eea.glossary](https://github.com/eea/eea.glossary).
+
 Docker images created for EEA Glossary, including images for **ZEO server**, **ZEO client**, **Varnish** and a dedicated data container.
 
 **ZEO server** and **ZEO client** have the same base image, you can find it on [Docker Hub](https://registry.hub.docker.com/u/eeacms/zope/) or you can inspect the [Github repository](https://github.com/eea/eea.docker.zope) to see the Dockerfile.
